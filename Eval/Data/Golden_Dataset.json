@@ -1,0 +1,82 @@
+[
+    {
+        "question": "Define Machine Learning and explain its relationship with Artificial Intelligence.",
+        "ground_truth": "Machine Learning (ML) is a subfield of Artificial Intelligence concerned with developing statistical algorithms that can learn from data and generalize to unseen data without explicit programming. ML grew out of the quest for AI, where early researchers attempted to make machines learn from data. While AI initially emphasized symbolic and knowledge-based reasoning, ML shifted toward statistical and probabilistic methods, focusing on solving practical problems using data-driven approaches."
+    },
+    {
+        "question": "What are the three main types of Machine Learning algorithms? Give one example of each.",
+        "ground_truth": "The three main types are: Supervised Learning Uses labeled data; e.g., classification algorithms for email filtering. Unsupervised Learning Finds structure in unlabeled data; e.g., k-means clustering. Reinforcement Learning Trains agents to take actions that maximize cumulative rewards; e.g., AlphaGo."
+    },
+    {
+        "question": "Describe the concept of Generalization in Machine Learning.",
+        "ground_truth": "Generalization refers to a models ability to perform accurately on unseen data after training. It balances underfitting (too simple models) and overfitting (too complex models). Learning theory uses probabilistic bounds to estimate generalization error, emphasizing that the complexity of the hypothesis should match the complexity of the underlying data-generating function."
+    },
+    {
+        "question": "Explain the difference between Machine Learning and Data Mining.",
+        "ground_truth": "While both fields share similar methods, Machine Learning focuses on prediction using known data patterns, whereas Data Mining emphasizes discovering previously unknown properties in data. In ML, performance is judged by how well models reproduce known knowledge, while in Data Mining, success lies in identifying novel insights."
+    },
+    {
+        "question": "What is Dimensionality Reduction, and what is its purpose?",
+        "ground_truth": "Dimensionality reduction reduces the number of random variables by deriving a smaller set of principal variables, often through methods like Principal Component Analysis (PCA). It simplifies data, mitigates redundancy, and enhances efficiency in tasks like visualization and model training while preserving essential information."
+    },
+    {
+        "question": "Summarize the working principle of Artificial Neural Networks (ANNs).",
+        "ground_truth": "ANNs consist of interconnected nodes (artificial neurons) organized in layers. Each neuron processes inputs using weighted connections and non-linear activation functions to produce outputs. Learning involves adjusting these weights to minimize prediction error. Deep learning extends ANNs with multiple hidden layers to capture complex patterns for tasks like vision and speech recognition."
+    },
+    {
+        "question": "What is Overfitting, and how is it mitigated in Machine Learning models?",
+        "ground_truth": "Overfitting occurs when a model becomes too complex, fitting training data noise rather than the underlying pattern, leading to poor generalization. It is mitigated by techniques such as regularization, cross-validation, pruning, or using simpler models that balance training accuracy and complexity."
+    },
+    {
+        "question": "Explain the ethical concerns associated with Machine Learning, particularly bias.",
+        "ground_truth": "Ethical issues in ML include algorithmic bias, fairness, and accountability. Bias arises when training data reflect social or cultural prejudices, leading to discriminatory outcomes (e.g., biased hiring systems or facial recognition errors). Ensuring diversity in datasets and transparency in algorithmic rules is crucial to mitigate such biases."
+    },
+    {
+        "question": "What is Federated Learning, and why is it significant?",
+        "ground_truth": "Federated Learning is a decentralized approach where models are trained across multiple devices without sharing individual data with a central server. It enhances privacy and efficiency by keeping user data local while aggregating model updates globally, as seen in applications like Google's Gboard."
+    },
+    {
+        "question": "Describe Explainable AI (XAI) and its importance.",
+        "ground_truth": "Explainable AI (XAI) refers to systems whose decisions or predictions are interpretable by humans. It contrasts with black-box models, promoting transparency and accountability in decision-making processes. XAI supports users understanding and trust in AI systems, ensuring responsible deployment, especially where decisions impact human lives."
+    },
+    {
+        "question": "Explain the bias-variance decomposition and its importance in generalization.",
+        "ground_truth": "The bias-variance decomposition quantifies generalization error by analyzing the tradeoff between bias (systematic error) and variance (sensitivity to data variation). A highly flexible algorithm has low bias but high variance, while an inflexible algorithm has high bias but low variance. The prediction error of a classifier depends on the sum of both."
+    },
+    {
+        "question": "How does AIXI theory relate to machine learning and data compression?",
+        "ground_truth": "AIXI theory connects optimal prediction and compression by positing that the best possible compression of a sequence x is the smallest software capable of generating x. It views intelligence as compression efficiency: smaller programs that reproduce observed data embody higher generalization capacity."
+    },
+    {
+        "question": "Describe the principle of deep learning and its biological inspiration.",
+        "ground_truth": "Deep learning uses multiple hidden layers in an artificial neural network to model how the human brain processes sensory input. Each layer extracts increasingly abstract features from raw data. This architecture enables learning hierarchical representations for complex tasks like computer vision and speech recognition."
+    },
+    {
+        "question": "What is a Bayesian Network and how does it differ from an influence diagram?",
+        "ground_truth": "A Bayesian Network is a probabilistic graphical model representing random variables and their conditional dependencies via a directed acyclic graph (DAG). An influence diagram extends this concept by modeling decision problems under uncertainty, incorporating decision and utility nodes for optimization."
+    },
+    {
+        "question": "Define and explain the significance of rule-based machine learning models.",
+        "ground_truth": "Rule-based Machine Learning (RBML) automatically extracts interpretable if then rules from data. Techniques include learning classifier systems, association rule learning, and artificial immune systems. These models evolve rules to represent knowledge collectively rather than through a single function, making them interpretable and practical for decision-making."
+    },
+    {
+        "question": "Discuss the relationship between dimensionality reduction, PCA, and the manifold hypothesis.",
+        "ground_truth": "Dimensionality reduction reduces random variables by identifying principal variables, often via Principal Component Analysis (PCA). PCA transforms high-dimensional data into lower-dimensional representations while preserving key variance. The manifold hypothesis asserts that high-dimensional data actually reside on low-dimensional manifolds, which is foundational to manifold learning."
+    },
+    {
+        "question": "What role do genetic algorithms play in machine learning, and how do they relate to natural selection?",
+        "ground_truth": "Genetic Algorithms (GAs) are search heuristics that emulate natural selection by evolving populations of candidate solutions using mutation and crossover. In machine learning, GAs optimize parameters or architectures, reflecting adaptive learning through simulated evolution."
+    },
+    {
+        "question": "What is neuromorphic computing, and how do physical neural networks emulate biological systems?",
+        "ground_truth": "Neuromorphic computing designs hardware inspired by biological neural structures. Physical neural networks use adjustable materials such as memristors to emulate synaptic behavior, offering computational efficiency and biological realism beyond software-based implementations."
+    },
+    {
+        "question": "Describe how algorithmic bias arises in machine learning systems and provide a documented example.",
+        "ground_truth": "Algorithmic bias occurs when models reflect societal or data-collection biases in training data. For example, St. George's Medical School's admissions algorithm unfairly rejected candidates with non-European names due to biased historical data, illustrating how ML can digitize human prejudices."
+    },
+    {
+        "question": "Explain the self-learning paradigm introduced by the Crossbar Adaptive Array (CAA).",
+        "ground_truth": "The Crossbar Adaptive Array (CAA), introduced in 1982, represents a self-learning paradigm where learning occurs without external rewards. It uses internal emotional evaluations as feedback, updating its memory matrix iteratively to learn goal-seeking behavior through the interaction of cognition and emotion."
+    }
+]
