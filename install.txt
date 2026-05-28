@@ -1,0 +1,52 @@
+# -----------------------------
+# Backend & API
+# -----------------------------
+fastapi[standard]
+uvicorn
+
+# -----------------------------
+# Frontend
+# -----------------------------
+streamlit
+streamlit-mic-recorder
+
+# -----------------------------
+# LLM / RAG
+# -----------------------------
+langchain_core 
+langchain_text_splitters
+langchain_chroma 
+langchain_huggingface
+# langchain-community
+langchain_google_genai
+langchain_classic
+sentence-transformers
+rank-bm25
+
+# -----------------------------
+# ASR & Audio
+# -----------------------------
+sarvamai
+transformers 
+onnx 
+onnxruntime 
+torchcodec
+torch
+torchaudio
+# huggingface-hub
+
+# -----------------------------
+# Translation / External APIs
+# -----------------------------
+# google-generativeai
+
+# -----------------------------
+# Web & Scraping
+# -----------------------------
+requests
+beautifulsoup4
+
+# -----------------------------
+# Utilities
+# -----------------------------
+python-dotenv

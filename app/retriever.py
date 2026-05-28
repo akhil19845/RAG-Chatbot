@@ -5,7 +5,7 @@ import os
 import logging
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
-from .config import CHROMA_PATH, EMBEDDING_MODEL_NAME
+from .config import CHROMA_PATH, EMBEDDING_MODEL_NAME, FINAL_RETRIEVAL_K
 from .indexer import build_index
 
 logger = logging.getLogger(__name__)
@@ -49,5 +49,5 @@ def get_vectorstore(persist_directory: Optional[str] = None, embedding_model: Op
 def get_retriever(k: int = 4, persist_directory: Optional[str] = None, embedding_model: Optional[str] = None, build_if_missing: bool = True):
 
     vs = get_vectorstore(persist_directory=persist_directory, embedding_model=embedding_model, build_if_missing=build_if_missing)
-    retriever = vs.as_retriever(search_type="similarity", search_kwargs={"k": k})
+    retriever = vs.as_retriever(search_type="similarity", search_kwargs={"k": FINAL_RETRIEVAL_K})
     return retriever

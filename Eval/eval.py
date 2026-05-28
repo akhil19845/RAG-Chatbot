@@ -15,7 +15,8 @@ from app.chains import build_conv_chain
 from app.reranker import get_retriever
 from app.config import (
     INPUT_FILE,
-    OUTPUT_FILE
+    OUTPUT_FILE,
+    INITIAL_RETRIEVAL_K
 )
 
 def make_session_id() -> str:
@@ -28,7 +29,7 @@ def main():
     # session_id = os.getenv("SESSION_ID", "eval-session")
     # session_id = "reranker-session"
 
-    top_k = 3
+    # top_k = INITIAL_RETRIEVAL_K
     input_file = INPUT_FILE
     output_file = OUTPUT_FILE
 
@@ -40,19 +41,23 @@ def main():
 
     # chain = build_conv_chain(session_id=session_id, k=top_k)
 
-    retriever = get_retriever(k=top_k)
+    # retriever = get_retriever(k=top_k)
 
     # data = data[0]
     results = []
     for idx, item in enumerate(data, start=0):
         session_id = make_session_id()
-        chain = build_conv_chain(session_id=session_id, k=top_k)
+        chain = build_conv_chain(session_id=session_id)
         question = item["question"]
-        docs = retriever.invoke(question)
-        context_texts = [doc.page_content for doc in docs]
+        # docs = resp.get("source_documents", []) if isinstance(resp, dict) else []
+        # docs = retriever.invoke(question)
+        # context_texts = [doc.page_content for doc in docs]
 
         resp = chain.invoke({"question": question, "chat_history": []})
 
+        docs = resp.get("source_documents", []) if isinstance(resp, dict) else []
+
+        context_texts = [doc.page_content for doc in docs]
         answer = resp["answer"]
 
         results.append({
@@ -64,7 +69,7 @@ def main():
 
         print(f"q{idx} processed")
 
-        time.sleep(60)
+        # time.sleep(60)
     with open(output_file, "w", encoding="utf-8") as out_f:
         json.dump(results, out_f, ensure_ascii=False, indent=2)
 

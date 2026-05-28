@@ -26,7 +26,7 @@ load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
 
 model = GeminiModel(
-    model_name="gemini-2.5-flash-lite",
+    model="gemini-2.5-flash-lite",
     api_key=api_key,
     temperature=0
 )
@@ -64,8 +64,8 @@ metrics = [
     # ContextualPrecisionMetric(model=custom_llm, include_reason=True),
     # ContextualRelevancyMetric(model=custom_llm, include_reason=True),
     # ContextualRecallMetric(model=custom_llm, include_reason=True)
-    FaithfulnessMetric(model=custom_llm, include_reason=True)
-    # AnswerRelevancyMetric(model=custom_llm, include_reason=True)
+    # FaithfulnessMetric(model=custom_llm, include_reason=True)
+    AnswerRelevancyMetric(model=custom_llm, include_reason=True)
 ]
 
 

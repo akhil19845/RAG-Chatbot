@@ -1,0 +1,52 @@
+[
+  {
+    "question": "I noticed Lab 1 never defines a parser block manually. How is the packet still getting parsed correctly?",
+    "chatbot_answer": "Lab 1 utilizes the default, pre-compiled parser provided by the architecture's base file (such as a core DOCA or switch model). Because the lab focuses on standard packet formats, the architecture automatically invokes this built-in parser pipeline to extract standard headers without requiring the user to explicitly write a `parser` block.",
+    "ground_truth": "The lab uses built-in DOCA modules for packet parsing, so a manual parser block is not needed in Lab 1."
+  },
+  {
+    "question": "Why does Lab 2 extend NV_FIXED_PARSER instead of replacing it completely?",
+    "chatbot_answer": "Extending `NV_FIXED_PARSER` allows the custom pipeline to inherit the parsing logic for standard network protocols (like Ethernet, IPv4, and TCP/UDP) that are already optimized by the hardware. Replacing it completely would require rewriting massive amounts of boilerplate parsing code, risking performance degradation and losing access to standard hardware-accelerated parsing pathways.",
+    "ground_truth": "Because the lab keeps the standard DOCA parser for normal headers and adds only the custom parsing needed for the new header."
+  },
+  {
+    "question": "Why do we launch the P4Runtime shell in Lab 1 even though there are no tables to program?",
+    "chatbot_answer": "The P4Runtime shell is launched in Lab 1 to verify control plane connectivity, inspect the pipeline's runtime status, and observe how the architecture handles default packet forwarding or architecture counters. It establishes the baseline workflow for interacting with the data plane before adding custom match-action tables in later labs.",
+    "ground_truth": "The lab still uses it to load the compiled P4 artifacts and connect to the running pipeline, even though no table entries are added in that lab."
+  },
+  {
+    "question": "In Lab 1, after running send.py, why does tcpdump show a packet coming back from 10.0.0.1 to H2?",
+    "chatbot_answer": "This behavior typically occurs because the network architecture or a default control plane rule is configured to handle ICMP/ARP requests or mirror traffic. When `send.py` transmits a packet, the switch pipeline or a local network stack interface (often acting as the default gateway `10.0.0.1`) generates an automatic reply or bounces the packet back along the path monitored by tcpdump.",
+    "ground_truth": "That is expected because basic_forwarding.p4 swaps the IPv4 source and destination addresses inside forward(), then sends the packet out using nv_send_to_port(port). This makes the DPU reflect the packet back toward H2."
+  },
+  {
+    "question": "In Lab 2, why do we inspect doca_headers.p4 and doca_parser.p4 before writing the custom field_swapper.p4 logic?",
+    "chatbot_answer": "Inspecting `doca_headers.p4` and `doca_parser.p4` is necessary to understand the exact structure names, field offsets, and header validity flags exposed by the DOCA framework. Without knowing how the standard headers are defined and named in these files, the custom `field_swapper.p4` logic cannot correctly reference or manipulate fields like MAC or IP addresses.",
+    "ground_truth": "The lab inspects those files to show the predefined DOCA headers and parser graph already available in the SDK. They are not edited directly; they help the user understand what standard headers and parser states exist before extending the pipeline with swap_t and parse_swap."
+  },
+  {
+    "question": "In the match-action lab, why does the P4Runtime shell first create te_forwarding_1 with the drop action before setting headers.ethernet.dst_addr?",
+    "chatbot_answer": "Creating the table entry with a default `drop` action ensures a 'fail-secure' posture. By establishing a restrictive default behavior first, you prevent unhandled traffic from leaking through or causing broadcast storms before the explicit, granular match conditions (like `headers.ethernet.dst_addr`) are fully programmed and activated.",
+    "ground_truth": "The table entry is built step by step in P4Runtime. First, te_forwarding_1 is created for dynamic_l2_forwarding.forward_table with the drop action. Then the match field headers.ethernet.dst_addr is assigned. The rule affects the data plane only after te_forwarding_1.insert() is executed."
+  },
+  {
+    "question": "In Lab 5, after I create te_forwarding_2 with the forward action, why does the rule not immediately start forwarding packets?",
+    "chatbot_answer": "The rule does not immediately forward packets because table modifications in P4Runtime often require an explicit commit phase, or the rule lacks a matching high-priority entry to override an existing default drop rule. Additionally, hardware-accelerated pipelines may experience a slight propagation delay while the control plane serializes and loads the new entry into the physical NIC/switch tables.",
+    "ground_truth": "Creating te_forwarding_2 only initializes the table entry object. The rule becomes active only after the match field is set, the action parameter port is assigned, and te_forwarding_2.insert() is executed. In the lab, te_forwarding_2 matches headers.ethernet.dst_addr = \"0x222222222\" and forwards matching packets to port 0."
+  },
+  {
+    "question": "In Lab 2, why does the code first open a device matching PCI address \"00:10.0\" and then later close it and search again based on DMA capability?",
+    "chatbot_answer": "The initial search by PCI address is often used to probe for a specific physical or virtual function on the SmartNIC to verify its presence. However, DOCA development best practices require discovering devices based on capability flags (like DMA support) rather than hardcoded PCI addresses, ensuring the code remains portable across different hardware slots, setups, or virtualized environments.",
+    "ground_truth": "The first search demonstrates opening a device by a specific PCI address. The device is then closed, the device list is recreated, and the lab searches again for a device that supports DMA Memcpy using doca_dma_cap_task_memcpy_is_supported(). This shows both PCI-based discovery and capability-based device selection."
+  },
+  {
+    "question": "In Lab 3, how do we know the doca_buf is actually pointing to the memory where \"Hello, DOCA!\" was written?",
+    "chatbot_answer": "The `doca_buf` is explicitly bound to that memory region during its initialization using a memory inventory or descriptor pool, where you pass the raw pointer and size of the buffer containing \"Hello, DOCA!\". You can verify this programmatically by inspecting the buffer's data pointer and length descriptors via DOCA API helper functions.",
+    "ground_truth": "When the application runs, it writes \"Hello, DOCA!\" into the allocated buffer, creates an MMAP and buffer inventory, retrieves a doca_buf pointing to that buffer, and logs the buffer data as \"Hello, DOCA!\" with length 1024 bytes."
+  },
+  {
+    "question": "In Lab 4, how does the callback know whether each DMA Memcpy task copied the correct data?",
+    "chatbot_answer": "The callback evaluates a `doca_task` status structure passed to it by the DOCA work queue upon completion. To verify data integrity, the application either checks the task status code for success (`DOCA_SUCCESS`) or utilizes user-defined context pointers (`user_data`) attached to the task to run a quick programmatic comparison (like `memcmp`) between the source and destination memory spaces.",
+    "ground_truth": "Each task stores an expected byte value in task_user_data as task_id + 1. In the completion callback, the destination buffer is checked byte by byte against that expected value. If any byte differs, the callback logs an error."
+  }
+]

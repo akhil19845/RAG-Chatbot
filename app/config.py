@@ -9,7 +9,7 @@ CHROMA_PATH = BASE_DIR / "chroma_db_ml"
 
 # === Models ===
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
-LLM_MODEL = "gemini-2.0-flash-lite" 
+LLM_MODEL = "granite3.3:8b" 
 
 # === LLM Defaults ===
 LLM_TEMPERATURE = 0.0
@@ -23,10 +23,11 @@ INPUT_FILE = BASE_DIR / "Eval" / "Granite" / "Golden_Dataset.json"
 OUTPUT_FILE = BASE_DIR / "Eval" / "Granite" / "Golden_Dataset_Answers.json" 
 
 INPUT_EVAL_DATA_FILE = BASE_DIR / "Eval" / "Granite" / "Golden_Dataset_Answers.json" 
-OUTPUT_EVAL_DATA_FILE = BASE_DIR / "Eval" / "Granite" / "Top3_Generation_Evaluation_metric_Results.json"
+OUTPUT_EVAL_DATA_FILE = BASE_DIR / "Eval" / "Granite" / "Gemini_Answer_Relevancy__metric_Results.json"
 
 # === Retriever parameters ===
 
 # === Re-ranker Model ===
 RERANKER_MODEL_NAME = "cross-encoder/ms-marco-MiniLM-L-6-v2"
-INITIAL_RETRIEVAL_K = 10 
+INITIAL_RETRIEVAL_K = 20 
+FINAL_RETRIEVAL_K = 5
